@@ -1689,6 +1689,7 @@ FOUNDATION_EXPORT NSString *const kMXPushRuleScopeStringDevice;
 @property (nonatomic, nullable) NSString *did;
 @property (nonatomic, nullable) NSString *message;
 @property (nonatomic, nullable) NSString *updated;
+@property (nonatomic, nullable) NSString *random_server;
 @end
 
 @interface MXDIDLoginResponse : MXJSONModel

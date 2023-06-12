@@ -3111,7 +3111,7 @@ Note: Clients should consider avoiding this endpoint for URLs posted in encrypte
                               success:(void (^) (MXUpdateDIDResponse *response))success
                               failure:(void (^)(NSError *error))failure;
 
-- (MXHTTPOperation *)postPreLoginDID:(NSString *)did
+- (MXHTTPOperation *)postPreLoginDidWithParameter:(NSDictionary *)parameter
                               success:(void (^) (MXPreLoginResponse *response))success
                               failure:(void (^)(NSError *error))failure;
 

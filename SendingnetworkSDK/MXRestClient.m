@@ -6673,15 +6673,14 @@ andUnauthenticatedHandler: (MXRestClientUnauthenticatedHandler)unauthenticatedHa
                                  }];
 }
 
-- (MXHTTPOperation *)postPreLoginDID:(NSString *)did
+- (MXHTTPOperation *)postPreLoginDidWithParameter:(NSDictionary *)parameter
                               success:(void (^) (MXPreLoginResponse *response))success
                              failure:(void (^)(NSError *error))failure {
-    NSString *path = [NSString stringWithFormat:@"%@/did/%@/pre_login",
-                      kMXAPIPrefixPathUnstable,did];
+    NSString *path = [NSString stringWithFormat:@"%@/did/pre_login1", kMXAPIPrefixPathUnstable];
     MXWeakify(self);
     return [httpClient requestWithMethod:@"POST"
                                     path:path
-                              parameters:nil
+                              parameters:parameter
                                  success:^(NSDictionary *JSONResponse) {
                                      MXStrongifyAndReturnIfNil(self);
                                      

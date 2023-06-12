@@ -207,20 +207,25 @@ class DIDLoginViewController: BaseViewController {
     }
     
     func pre_loginDID(did: String) {
-        client?.postPreLoginDID(did, success: {[weak self] response in
+        let random = MXTools.generateSecret() ?? ""
+        client?.postPreLoginDid(withParameter: ["did": did, "random": random], success: {[weak self] response in
             guard let self = self else { return }
             guard let response = response else { return }
             guard let message = response.message, let did = response.did, let updateTime = response.updated else { return }
             print("pre_log success")
+            let random_server = response.random_server ?? ""
             let token = self.signinMessage(message: message)
-            self.loginWithDID(identifier: ["did":did,"token":token], updateTime: updateTime)
+            self.loginWithDID(identifier: ["did":did,"token":token], random: random, random_server: random_server, updateTime: updateTime)
         }, failure: { error in
             print("pre_log faile\(error.debugDescription)")
         })
     }
     
-    func loginWithDID(identifier: [String: String], updateTime: String) {
-        client?.postLoginDID(did, withParameter: ["type":"m.login.did.identity","updated":updateTime,"identifier":identifier], success: { response in
+    func loginWithDID(identifier: [String: String], random: String, random_server: String, updateTime: String) {
+        client?.postLoginDID(did, withParameter: [
+            "type":"m.login.did.identity","updated":updateTime,"identifier":identifier,
+            "random_server":random_server, "random":random
+        ], success: { response in
             guard let response = response else { return }
             print("login success, user id: \(response.userId ?? ""), access_toke: \(response.accessToken ?? "")")
             let alert = UIAlertController(title: "login success", message: "user id: \(response.userId ?? "")\naccess_toke: \(response.accessToken ?? "")", preferredStyle: .alert)

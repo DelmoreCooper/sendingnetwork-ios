@@ -2643,6 +2643,7 @@ NSString *const kMXPushRuleScopeStringDevice = @"device";
     MXJSONModelSetString(response.did, JSONDictionary[@"did"]);
     MXJSONModelSetString(response.message, JSONDictionary[@"message"]);
     MXJSONModelSetString(response.updated, JSONDictionary[@"updated"]);
+    MXJSONModelSetString(response.random_server, JSONDictionary[@"random_server"]);
     return response;
 }
 
